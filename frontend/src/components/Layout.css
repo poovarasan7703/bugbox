@@ -1,0 +1,161 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.logo:hover {
+  text-decoration: none;
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.logo-icon {
+  font-size: 1.75rem;
+  filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3));
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-info {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  background: var(--bg-input);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+
+.layout-main {
+  flex: 1;
+  padding: clamp(1rem, 3vw, 2rem);
+  background: transparent;
+  display: flex;
+  justify-content: center;
+}
+
+.layout-inner {
+  width: min(100%, 1200px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  background: var(--bg-input);
+  color: var(--text);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .layout-header {
+    padding: 1rem;
+  }
+
+  .logo {
+    font-size: 1.25rem;
+  }
+
+  .logo-icon {
+    font-size: 1.5rem;
+  }
+
+  .nav {
+    gap: 0.5rem;
+  }
+
+  .user-info {
+    font-size: 0.8rem;
+    padding: 0.375rem 0.75rem;
+  }
+
+  .layout-main {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .layout-header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.75rem;
+  }
+
+  .logo {
+    font-size: 1.125rem;
+  }
+
+  .nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .user-info {
+    order: -1;
+  }
+
+  .layout-main {
+    padding: 0.75rem;
+  }
+}

@@ -1,0 +1,554 @@
+.tester-dashboard .page-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.tester-dashboard .page-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.tester-dashboard .page-header p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.report-section,
+.bugs-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.report-section::before,
+.bugs-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent-gradient);
+}
+
+.report-section:hover,
+.bugs-section:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.report-section h2,
+.bugs-section h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.report-section h2::before {
+  content: '🎥';
+  font-size: 1.5rem;
+}
+
+.bugs-section h2::before {
+  content: '📋';
+  font-size: 1.5rem;
+}
+
+.report-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.report-form .form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.report-form .form-group input,
+.report-form .form-group textarea {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: var(--text);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  resize: vertical;
+}
+
+.report-form .form-group input:focus,
+.report-form .form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+  transform: translateY(-1px);
+}
+
+.report-form .form-group input::placeholder,
+.report-form .form-group textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.video-ready {
+  color: var(--success);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.video-ready::before {
+  content: '✅';
+  font-size: 1.1rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: flex-end;
+}
+
+.form-actions .btn {
+  padding: 0.875rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.form-actions .btn-primary {
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-actions .btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.form-actions .btn-primary:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.form-actions .btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), var(--glow);
+}
+
+.form-actions .btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.form-actions .btn-ghost:hover {
+  background: var(--bg-input);
+  color: var(--text);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.form-error {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.25) 100%);
+  color: var(--error);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Toast Notifications */
+.toast {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  z-index: 1000;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 300px;
+  animation: slideInRight 0.3s ease-out;
+  backdrop-filter: blur(10px);
+}
+
+.toast-success {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.9) 0%, rgba(5, 150, 105, 0.9) 100%);
+  color: white;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.toast-error {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.9) 0%, rgba(220, 38, 38, 0.9) 100%);
+  color: white;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.toast-info {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.toast-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.toast-message {
+  flex: 1;
+  font-weight: 500;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+
+.toast-close:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Success Overlay */
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.success-animation {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  animation: bounceIn 0.5s ease-out;
+  max-width: 400px;
+}
+
+.success-checkmark {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(135deg, var(--success) 0%, #10b981 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+  animation: checkmarkPulse 2s ease-in-out infinite;
+}
+
+.success-animation h3 {
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.success-animation p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes checkmarkPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Input Validation */
+.input-valid {
+  border-color: var(--success) !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+.input-valid:focus {
+  border-color: var(--success) !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
+}
+
+/* Loading States */
+.btn-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Loading Skeleton */
+.loading-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .tester-dashboard .page-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .tester-dashboard .page-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .tester-dashboard .page-header p {
+    font-size: 0.9rem;
+  }
+
+  .report-section,
+  .bugs-section {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .report-section h2,
+  .bugs-section h2 {
+    font-size: 1.125rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .report-form .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .report-form .form-group input,
+  .report-form .form-group textarea {
+    padding: 0.875rem;
+    font-size: 0.95rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .toast {
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+    max-width: none;
+  }
+
+  .success-animation {
+    padding: 2rem;
+    max-width: 90vw;
+  }
+
+  .success-checkmark {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+
+  .success-animation h3 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tester-dashboard .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .report-section,
+  .bugs-section {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .report-section h2,
+  .bugs-section h2 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .report-form .form-group input,
+  .report-form .form-group textarea {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .video-ready {
+    font-size: 0.9rem;
+    padding: 0.625rem 0.875rem;
+  }
+
+  .form-error {
+    padding: 0.875rem;
+    font-size: 0.9rem;
+  }
+
+  .toast {
+    top: 80px;
+    padding: 0.875rem 1.25rem;
+  }
+
+  .success-animation {
+    padding: 1.5rem;
+  }
+
+  .success-checkmark {
+    width: 50px;
+    height: 50px;
+    font-size: 1.75rem;
+  }
+
+  .success-animation h3 {
+    font-size: 1.125rem;
+  }
+
+  .success-animation p {
+    font-size: 0.9rem;
+  }
+}
+
+.skeleton-row {
+  height: 60px;
+  background: var(--bg-input);
+  border-radius: 8px;
+  animation: skeletonLoading 1.5s ease-in-out infinite;
+}
+
+.skeleton-row:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.skeleton-row:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes skeletonLoading {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}

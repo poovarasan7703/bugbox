@@ -1,0 +1,102 @@
+.developer-dashboard .page-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.developer-dashboard .page-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.developer-dashboard .page-header p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.developer-dashboard .bugs-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.developer-dashboard .bugs-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent-gradient);
+}
+
+.developer-dashboard .bugs-section:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.developer-dashboard .bugs-section h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.developer-dashboard .bugs-section h2::before {
+  content: '🔧';
+  font-size: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .developer-dashboard .page-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .developer-dashboard .page-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .developer-dashboard .page-header p {
+    font-size: 0.9rem;
+  }
+
+  .developer-dashboard .bugs-section {
+    padding: 1.5rem;
+  }
+
+  .developer-dashboard .bugs-section h2 {
+    font-size: 1.125rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .developer-dashboard .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .developer-dashboard .bugs-section {
+    padding: 1rem;
+  }
+
+  .developer-dashboard .bugs-section h2 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+}

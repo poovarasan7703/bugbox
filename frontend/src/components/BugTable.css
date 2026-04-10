@@ -1,0 +1,131 @@
+.bug-table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.bug-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.bug-table th,
+.bug-table td {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  transition: all 0.2s ease;
+}
+
+.bug-table th {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--bg-input);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.bug-table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.bug-table tbody tr.clickable {
+  cursor: pointer;
+}
+
+.bug-table tbody tr.clickable:hover {
+  background: var(--bg-input);
+  transform: translateX(4px);
+  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.bug-table tbody tr.clickable:hover td {
+  border-bottom-color: var(--accent);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.status-badge:hover {
+  transform: scale(1.05);
+}
+
+.status-open {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.3) 100%);
+  color: var(--error);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.status-progress {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.3) 100%);
+  color: var(--warning);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.status-fixed {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.3) 100%);
+  color: var(--success);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.muted {
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+  padding: 2rem;
+  background: var(--bg-input);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .bug-table th,
+  .bug-table td {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.85rem;
+  }
+
+  .bug-table th {
+    font-size: 0.7rem;
+  }
+
+  .status-badge {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bug-table-wrapper {
+    margin: 0 -0.25rem;
+    border-radius: 8px;
+  }
+
+  .bug-table {
+    min-width: 520px;
+  }
+
+  .bug-table th,
+  .bug-table td {
+    padding: 0.625rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}

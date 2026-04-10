@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BugBox Demo - Test App</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    h1 { margin-bottom: 1rem; }
+    p { margin-bottom: 1rem; color: #aaa; }
+    .card {
+      background: #16213e;
+      padding: 1.5rem;
+      border-radius: 12px;
+      max-width: 400px;
+      margin-bottom: 1.5rem;
+    }
+    button {
+      padding: 0.75rem 1.25rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      border: none;
+      border-radius: 8px;
+      background: #0f3460;
+      color: #eee;
+      cursor: pointer;
+    }
+    button:hover { background: #1a4a7a; }
+    input { padding: 0.5rem; border-radius: 6px; margin-right: 0.5rem; width: 200px; }
+  </style>
+</head>
+<body>
+  <h1>🐛 BugBox Demo App</h1>
+  <p>This page has the BugBox capture SDK. Open BugBox, start a report, and enter this URL with the session. Clicks and console logs will be captured.</p>
+  
+  <div class="card">
+    <h3>Test interactions</h3>
+    <button onclick="console.log('Button A clicked')">Log: Button A</button>
+    <button onclick="console.warn('Warning from Button B')">Warn: Button B</button>
+    <button onclick="console.error('Error from Button C')">Error: Button C</button>
+    <input type="text" placeholder="Type something" id="input" />
+    <button onclick="alert('Alert!')">Show Alert</button>
+  </div>
+
+  <script src="http://localhost:3001/capture-sdk.js"></script>
+  <script>
+    // BugBox will auto-start if URL has ?bugbox_session=XXX
+    const params = new URLSearchParams(location.search);
+    const sessionId = params.get('bugbox_session');
+    if (sessionId && window.BugBox) {
+      window.BugBox.setSessionId(sessionId);
+      window.BugBox.start();
+    }
+  </script>
+</body>
+</html>
