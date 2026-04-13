@@ -207,3 +207,164 @@ export const addComment = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const generateBugDescription = async (req, res) => {
+  try {
+    const { title, duration, size } = req.body;
+
+    if (!title || typeof title !== 'string' || !title.trim()) {
+      return res.status(400).json({ message: 'Bug title is required.' });
+    }
+
+    const cleanTitle = title.trim();
+
+    // Generate AI-powered description
+    let generatedDescription = '';
+    let suggestions = [];
+    let usedAI = false;
+
+    // Try to use AI first
+    if (process.env.OPENAI_API_KEY) {
+      try {
+        const prompt = `Write a very simple bug description in ONE sentence.
+Bug Title: "${cleanTitle}"
+
+Write ONLY: "There is an error in [what is broken] and check the [code section/module] in the code."
+
+Examples:
+- "There is an error in button click and check the event handler in the code."
+- "There is an error in user login and check the authentication module in the code."
+- "There is an error in form submission and check the validation logic in the code."
+
+Make it simple, direct, and focused on what to check.
+
+Respond in JSON format:
+{
+  "description": "There is an error in X and check the Y in the code.",
+  "solutions": ["solution1", "solution2"]
+}`;
+
+        const openai = (await import('openai')).default;
+        const client = new openai({
+          apiKey: process.env.OPENAI_API_KEY,
+        });
+
+        const response = await client.chat.completions.create({
+          model: 'gpt-3.5-turbo',
+          messages: [
+            {
+              role: 'system',
+              content: 'You are a helpful bug reporter. Write bugs in VERY SIMPLE words that anyone can understand. Use everyday language. NO technical jargon. Always respond with valid JSON.',
+            },
+            {
+              role: 'user',
+              content: prompt,
+            },
+          ],
+          temperature: 0.7,
+          max_tokens: 300,
+        });
+
+        const content = response.choices[0].message.content;
+        const parsed = JSON.parse(content);
+
+        generatedDescription = parsed.description || '';
+        suggestions = parsed.solutions || [];
+        usedAI = true;
+      } catch (aiError) {
+        console.error('AI generation error:', aiError.message);
+        // Will use fallback below
+      }
+    }
+
+    // If AI failed or not configured, use intelligent fallback
+    if (!usedAI) {
+      // Try to extract key words from title for smarter fallback
+      const titleLower = cleanTitle.toLowerCase();
+      let errorArea = 'this feature';
+      let codeSection = 'the related code';
+
+      // Common patterns
+      if (titleLower.includes('login')) {
+        errorArea = 'login';
+        codeSection = 'the login/authentication module';
+      } else if (titleLower.includes('button')) {
+        errorArea = 'button click';
+        codeSection = 'the button click handler';
+      } else if (titleLower.includes('form')) {
+        errorArea = 'form submission';
+        codeSection = 'the form validation and submission code';
+      } else if (titleLower.includes('email')) {
+        errorArea = 'email';
+        codeSection = 'the email sending module';
+      } else if (titleLower.includes('upload')) {
+        errorArea = 'file upload';
+        codeSection = 'the upload handler';
+      } else if (titleLower.includes('delete')) {
+        errorArea = 'delete operation';
+        codeSection = 'the delete function';
+      } else if (titleLower.includes('search')) {
+        errorArea = 'search';
+        codeSection = 'the search filter code';
+      } else if (titleLower.includes('display') || titleLower.includes('show')) {
+        errorArea = 'display of data';
+        codeSection = 'the data rendering code';
+      }
+
+      generatedDescription = `There is an error in ${errorArea} and check ${codeSection} in the code.`;
+
+      suggestions = [
+        `Review the code related to ${errorArea}`,
+        'Look for errors in the logic or syntax',
+        'Fix the error and test it',
+      ];
+    }
+
+    res.json({
+      success: true,
+      generatedDescription,
+      suggestions,
+      videoMetadata: {
+        duration,
+        size,
+      },
+      usedAI,
+    });
+  } catch (error) {
+    console.error('Generate description error:', error);
+    // Still return a basic description even on hard errors
+    const { title, duration, size } = req.body;
+    const titleLower = (title || '').toLowerCase();
+    
+    let basicErrorArea = 'this feature';
+    let basicCodeSection = 'the related code';
+    
+    if (titleLower.includes('login')) {
+      basicErrorArea = 'login';
+      basicCodeSection = 'the login module';
+    } else if (titleLower.includes('email')) {
+      basicErrorArea = 'email';
+      basicCodeSection = 'the email module';
+    } else if (titleLower.includes('form')) {
+      basicErrorArea = 'form';
+      basicCodeSection = 'the form code';
+    }
+
+    const basicDescription = `There is an error in ${basicErrorArea} and check ${basicCodeSection} in the code.`;
+
+    res.json({
+      success: true,
+      generatedDescription: basicDescription,
+      suggestions: [
+        'Watch the video to see the error',
+        'Check the code',
+        'Fix it and test',
+      ],
+      videoMetadata: {
+        duration: duration || 0,
+        size: size || 0,
+      },
+      usedAI: false,
+    });
+  }
+};

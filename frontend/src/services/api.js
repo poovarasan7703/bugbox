@@ -40,6 +40,8 @@ export const bugAPI = {
   getBug: (id) => api.get(`/bugs/${id}`),
   updateStatus: (id, status) => api.put(`/bugs/${id}/status`, { status }),
   addComment: (id, text) => api.post(`/bugs/${id}/comment`, { text }),
+  generateBugDescription: (title, duration, size) =>
+    api.post('/bugs/generate-description', { title, duration, size }),
 };
 
 export default api;

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { bugAPI } from '../services/api'
 import ScreenRecorder from '../components/ScreenRecorder'
+import VideoAnalyzer from '../components/VideoAnalyzer'
 import BugTable from '../components/BugTable'
 import './TesterDashboard.css'
 
@@ -43,6 +44,11 @@ export default function TesterDashboard() {
     setVideoBlob(blob)
     setShowForm(true)
     showToast('Recording completed! Ready to submit.', 'success')
+  }
+
+  const handleDescriptionGenerated = (generatedDescription) => {
+    setDescription(generatedDescription)
+    showToast('✨ Description auto-filled from video analysis!', 'success')
   }
 
   const handleSubmit = async (e) => {
@@ -141,6 +147,13 @@ export default function TesterDashboard() {
                 className={title.trim() ? 'input-valid' : ''}
               />
             </div>
+
+            {/* Video Analyzer - Auto-fills description */}
+            <VideoAnalyzer 
+              videoBlob={videoBlob}
+              title={title}
+              onDescriptionGenerated={handleDescriptionGenerated}
+            />
             <div className="form-group">
               <label>Description</label>
               <textarea
