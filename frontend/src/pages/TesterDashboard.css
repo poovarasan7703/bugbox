@@ -26,11 +26,15 @@
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 2rem;
+  width: 75%;
   margin-bottom: 2rem;
   box-shadow: var(--shadow);
   transition: all 0.3s ease;
-  position: relative;
+  /* position: relative; */
+  justify-content: center;
   overflow: hidden;
+  margin-left: 150px;
+
 }
 
 .report-section::before,
